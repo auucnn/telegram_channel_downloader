@@ -10,22 +10,22 @@ from telethon import TelegramClient, events, errors
 from telethon.tl.types import MessageMediaWebPage, PeerChannel
 
 # ***********************************************************************************#
-api_id = 1234567  # your telegram api id
-api_hash = '1234567890abcdefgh'  # your telegram api hash
-bot_token = '1234567890:ABCDEFGHIJKLMNOPQRST'  # your bot_token
-admin_id = 1234567890  # your chat id
-save_path = '/usr/downloads'  # file save path
+api_id = 18138452  # your telegram api id
+api_hash = '42f89bf956575caa848bd97b0e774fe9'  # your telegram api hash
+bot_token = '5153581630:AAHkLPN1eywiuhWEIBwx4aCSP4c5Vp_1Pnw'  # your bot_token
+admin_id = 5290688184  # your chat id
+save_path = '/CamaVideosFiles'  # file save path
 upload_file_set = True  # set upload file to google drive
-drive_id = '5FyJClXmsqNw0-Rz19'  # google teamdrive id 如果使用OD，删除''内的内容即可。
-drive_name = 'gc'  # rclone drive name
-max_num = 5  # 同时下载数量
+drive_id = ''  # google teamdrive id 如果使用OD，删除''内的内容即可。
+drive_name = 'CamaVideosFiles'  # rclone drive name
+max_num = 16  # 同时下载数量
 # filter file name/文件名过滤
-filter_list = ['你好，欢迎加入 Quantumu', '\n']
+filter_list = []
 # filter chat id /过滤某些频道不下载
-blacklist = [1388464914, ]
-download_all_chat = False  # 监控所有你加入的频道，收到的新消息如果包含媒体都会下载，默认关闭
+blacklist = []
+download_all_chat = True  # 监控所有你加入的频道，收到的新消息如果包含媒体都会下载，默认关闭
 filter_file_name = []  # 过滤文件后缀，可以填jpg、avi、mkv、rar等。
-proxy = ("socks5", '127.0.0.1', 4444) #自行替换代理设置，如果不需要代理，请删除括号内容
+proxy = () #自行替换代理设置，如果不需要代理，请删除括号内容
 # ***********************************************************************************#
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -100,7 +100,7 @@ async def worker(name):
                 message, os.path.join(file_save_path, file_name)))
             await asyncio.wait_for(task, timeout=3600)
             if upload_file_set:
-                proc = await asyncio.create_subprocess_exec('fclone',
+                proc = await asyncio.create_subprocess_exec('rclone',
                                                             'move',
                                                             os.path.join(
                                                                 file_save_path, file_name),
